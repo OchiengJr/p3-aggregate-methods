@@ -1,47 +1,48 @@
-from datetime import datetime
-class Student:
-    def __init__(self, name):
-        self.name = name
-        self._enrollments = []
+import unittest
 
-    def enroll(self, course):
-        if isinstance(course, Course):
-            enrollment = Enrollment(self, course)
-            self._enrollments.append(enrollment)
-            course.add_enrollment(enrollment)
-        else:
-            raise TypeError("course must be an instance of Course")
+class TestCodegrade(unittest.TestCase):
+    '''Test cases for code grading functionality'''
 
-    def get_enrollments(self):
-        return self._enrollments.copy()
+    def test_code_quality_pass(self):
+        '''Test if the code grading system correctly evaluates code quality (pass case)'''
+        # Simulate code grading system evaluating code quality
+        code_quality_score = evaluate_code_quality("good_code.py")
+        # Assert that the code quality score meets the expected criteria
+        self.assertGreaterEqual(code_quality_score, 80)
 
-class Course:
-    def __init__(self, title):
+    def test_code_quality_fail(self):
+        '''Test if the code grading system correctly evaluates code quality (fail case)'''
+        # Simulate code grading system evaluating code quality
+        code_quality_score = evaluate_code_quality("poor_code.py")
+        # Assert that the code quality score does not meet the expected criteria
+        self.assertLess(code_quality_score, 50)
 
-        self.title = title
-        self._enrollments = []
+    def test_functionality_pass(self):
+        '''Test if the code grading system correctly evaluates functionality (pass case)'''
+        # Simulate code grading system evaluating functionality
+        functionality_score = evaluate_functionality("correct_solution.py")
+        # Assert that the functionality score meets the expected criteria
+        self.assertGreaterEqual(functionality_score, 90)
 
-    def add_enrollment(self, enrollment):
-        if isinstance(enrollment, Enrollment):
-            self._enrollments.append(enrollment)
-        else:
-            raise TypeError("enrollment must be an instance of Enrollment")
+    def test_functionality_fail(self):
+        '''Test if the code grading system correctly evaluates functionality (fail case)'''
+        # Simulate code grading system evaluating functionality
+        functionality_score = evaluate_functionality("incorrect_solution.py")
+        # Assert that the functionality score does not meet the expected criteria
+        self.assertLess(functionality_score, 70)
 
-    def get_enrollments(self):
-        return self._enrollments.copy()
+    def test_performance_pass(self):
+        '''Test if the code grading system correctly evaluates performance (pass case)'''
+        # Simulate code grading system evaluating performance
+        performance_score = evaluate_performance("efficient_code.py")
+        # Assert that the performance score meets the expected criteria
+        self.assertGreaterEqual(performance_score, 90)
 
+    def test_performance_fail(self):
+        '''Test if the code grading system correctly evaluates performance (fail case)'''
+        # Simulate code grading system evaluating performance
+        performance_score = evaluate_performance("inefficient_code.py")
+        # Assert that the performance score does not meet the expected criteria
+        self.assertLess(performance_score, 70)
 
-class Enrollment:
-    all = []
-    
-    def __init__(self, student, course):
-        if isinstance(student, Student) and isinstance(course, Course):
-            self.student = student
-            self.course = course
-            self._enrollment_date = datetime.now()
-            type(self).all.append(self)
-        else:
-            raise TypeError("Invalid types for student and/or course")
-
-    def get_enrollment_date(self):
-        return self._enrollment_date
+    # Add more test methods as needed
